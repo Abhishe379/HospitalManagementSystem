@@ -31,6 +31,7 @@ public class Patient {
             message = "Doctor name should contain only letters"
     )
     private String doctorName;
+    private String reportPath;
 
     public Patient() {
     }
@@ -90,5 +91,13 @@ public  int getId()
 
     public void setDoctorName(String doctorName) {
         this.doctorName = doctorName;
+    }
+
+    public String getReportPath() {
+        return reportPath;
+    }
+
+    public void setReportPath(String reportPath) {
+        this.reportPath = reportPath;
     }
 }

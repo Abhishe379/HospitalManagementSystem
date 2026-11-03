@@ -9,6 +9,7 @@ public class PatientDTO
     private String gender;
     private String disease;
     private String doctorName;
+    private String reportPath;
 
     public PatientDTO() {
     }
@@ -69,5 +70,13 @@ public class PatientDTO
 
     public void setDoctorName(String doctorName) {
         this.doctorName = doctorName;
+    }
+
+    public String getReportPath() {
+        return reportPath;
+    }
+
+    public void setReportPath(String reportPath) {
+        this.reportPath = reportPath;
     }
 }

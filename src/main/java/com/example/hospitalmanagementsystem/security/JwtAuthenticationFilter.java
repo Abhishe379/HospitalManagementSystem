@@ -25,14 +25,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private CustomerUserDetailsService userDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain)
             throws ServletException, IOException {
-        if (request.getServletPath().startsWith("/auth")) {
+
+        String path = request.getServletPath();
+
+        // Public APIs - JWT check नहीं करना
+        if (path.startsWith("/auth/")
+                || path.startsWith("/swagger-ui/")
+                || path.startsWith("/v3/api-docs")
+                || path.equals("/swagger-ui.html")) {
+
             filterChain.doFilter(request, response);
             return;
         }
+
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -56,11 +66,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(
                                 userDetails,
                                 null,
-                                userDetails.getAuthorities());
+                                userDetails.getAuthorities()
+                        );
 
                 authentication.setDetails(
                         new WebAuthenticationDetailsSource()
-                                .buildDetails(request));
+                                .buildDetails(request)
+                );
 
                 SecurityContextHolder.getContext()
                         .setAuthentication(authentication);

@@ -2,7 +2,10 @@
 FROM eclipse-temurin:22-jdk-jammy AS build
 WORKDIR /app
 COPY . .
+RUN chmod +x gradlew
+
 RUN ./gradlew clean build -x test --no-daemon
+
 
 # Step 2: Run Stage
 FROM eclipse-temurin:22-jre-jammy

@@ -1,6 +1,9 @@
 package com.example.hospitalmanagementsystem.dto;
 
 import com.example.hospitalmanagementsystem.model.Doctor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public class DoctorDTO
 {
@@ -27,6 +30,8 @@ public class DoctorDTO
     {
         this.id = id;
     }
+
+    @NotBlank(message = "Doctor name cannot be empty")
     public String getName()
     {
     return name;
@@ -36,6 +41,7 @@ public class DoctorDTO
     {
         this.name = name;
     }
+    @NotBlank(message = "Specialization cannot be empty")
     public String getSpecialization()
     {
         return  specialization;
@@ -43,7 +49,7 @@ public class DoctorDTO
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
     }
-
+    @Positive(message = "Experience must be greater than 0")
     public int getExperience() {
         return experience;
     }

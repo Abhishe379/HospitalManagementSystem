@@ -1,5 +1,5 @@
 package com.example.hospitalmanagementsystem.exception;
-
+import com.example.hospitalmanagementsystem.exception.DoctorNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -32,5 +32,23 @@ public class GlobalExceptionHandler {
             PatientNotfoundException ex) {
 
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(DuplicateAppointmentException.class)
+    public ResponseEntity<String> handleDuplicateAppointment(
+            DuplicateAppointmentException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(ex.getMessage());
+    }
+    // Doctor Not Found Exception
+    @ExceptionHandler(DoctorNotFoundException.class)
+    public ResponseEntity<String> handleDoctorNotFoundException(
+            DoctorNotFoundException ex) {
+
+        return new ResponseEntity<>(
+                ex.getMessage(),
+                HttpStatus.NOT_FOUND
+        );
     }
 }

@@ -32,4 +32,11 @@ public class UserController
 
         return  new LoginResponse(token);
     }
+    @PostMapping("/reset-password")
+    public String resetPassword(
+            @RequestParam String username,
+            @RequestParam String newPassword) {
+
+        return service.resetPassword(username, newPassword);
+    }
 }
